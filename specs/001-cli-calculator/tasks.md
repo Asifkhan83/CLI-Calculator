@@ -51,31 +51,31 @@ The Tokenizer converts string input into tokens. All user stories depend on this
 
 #### RED Phase (Write failing tests first)
 
-- [ ] T006 [P] Write tokenizer tests: basic operators (+, -, *, /) in tests/test_tokenizer.py
-- [ ] T007 [P] Write tokenizer tests: positive integers, whitespace handling in tests/test_tokenizer.py
-- [ ] T008 [P] Write tokenizer tests: unary minus detection (start of expression, after operators) in tests/test_tokenizer.py
-- [ ] T009 [P] Write tokenizer tests: invalid characters raise errors in tests/test_tokenizer.py
-- [ ] T010 [P] Write tokenizer tests: empty/whitespace-only input raises errors in tests/test_tokenizer.py
+- [x] T006 [P] Write tokenizer tests: basic operators (+, -, *, /) in tests/test_tokenizer.py
+- [x] T007 [P] Write tokenizer tests: positive integers, whitespace handling in tests/test_tokenizer.py
+- [x] T008 [P] Write tokenizer tests: unary minus detection (start of expression, after operators) in tests/test_tokenizer.py
+- [x] T009 [P] Write tokenizer tests: invalid characters raise errors in tests/test_tokenizer.py
+- [x] T010 [P] Write tokenizer tests: empty/whitespace-only input raises errors in tests/test_tokenizer.py
 
 **Verify these tests FAIL before proceeding to GREEN phase**
 
 #### GREEN Phase (Minimal implementation to pass tests)
 
-- [ ] T011 Implement Tokenizer class with tokenize() method in calculator.py
-- [ ] T012 Implement TokenType enum (NUMBER, PLUS, MINUS, MULTIPLY, DIVIDE, EOF) in calculator.py
-- [ ] T013 Implement Token dataclass with type and value in calculator.py
-- [ ] T014 Implement number parsing (positive integers) in calculator.py
-- [ ] T015 Implement operator tokenization (+, -, *, /) in calculator.py
-- [ ] T016 Implement unary minus detection (context-sensitive: start, after operators) in calculator.py
-- [ ] T017 Implement whitespace skipping in calculator.py
-- [ ] T018 Implement error detection for invalid characters in calculator.py
-- [ ] T019 Run pytest on tokenizer tests - ALL MUST PASS
+- [x] T011 Implement Tokenizer class with tokenize() method in calculator.py
+- [x] T012 Implement TokenType enum (NUMBER, PLUS, MINUS, MULTIPLY, DIVIDE, EOF) in calculator.py
+- [x] T013 Implement Token dataclass with type and value in calculator.py
+- [x] T014 Implement number parsing (positive integers) in calculator.py
+- [x] T015 Implement operator tokenization (+, -, *, /) in calculator.py
+- [x] T016 Implement unary minus detection (context-sensitive: start, after operators) in calculator.py
+- [x] T017 Implement whitespace skipping in calculator.py
+- [x] T018 Implement error detection for invalid characters in calculator.py
+- [x] T019 Run pytest on tokenizer tests - ALL MUST PASS
 
 #### REFACTOR Phase (Clean up, optimize, document)
 
-- [ ] T020 Add type hints to Tokenizer class methods in calculator.py
-- [ ] T021 Add docstrings explaining tokenization logic in calculator.py
-- [ ] T022 Run mypy strict mode - MUST have 0 errors in calculator.py
+- [x] T020 Add type hints to Tokenizer class methods in calculator.py
+- [x] T021 Add docstrings explaining tokenization logic in calculator.py
+- [x] T022 Run mypy strict mode - MUST have 0 errors in calculator.py
 
 **Checkpoint**: Tokenizer fully implemented and tested, all tokenizer tests pass
 
@@ -96,31 +96,31 @@ factor     := NUMBER | UNARY_MINUS factor
 
 #### RED Phase (Write failing tests first)
 
-- [ ] T023 [P] Write parser tests: simple addition (5 + 3) in tests/test_parser.py
-- [ ] T024 [P] Write parser tests: simple subtraction, multiplication, division in tests/test_parser.py
-- [ ] T025 [P] Write parser tests: BODMAS precedence (2 + 3 * 4 = 14) in tests/test_parser.py
-- [ ] T026 [P] Write parser tests: left-to-right associativity (10 - 5 - 2 = 3) in tests/test_parser.py
-- [ ] T027 [P] Write parser tests: unary minus at start and after operators in tests/test_parser.py
-- [ ] T028 [P] Write parser tests: malformed expressions raise errors in tests/test_parser.py
-- [ ] T029 [P] Write parser tests: empty token list raises error in tests/test_parser.py
+- [x] T023 [P] Write parser tests: simple addition (5 + 3) in tests/test_parser.py
+- [x] T024 [P] Write parser tests: simple subtraction, multiplication, division in tests/test_parser.py
+- [x] T025 [P] Write parser tests: BODMAS precedence (2 + 3 * 4 = 14) in tests/test_parser.py
+- [x] T026 [P] Write parser tests: left-to-right associativity (10 - 5 - 2 = 3) in tests/test_parser.py
+- [x] T027 [P] Write parser tests: unary minus at start and after operators in tests/test_parser.py
+- [x] T028 [P] Write parser tests: malformed expressions raise errors in tests/test_parser.py
+- [x] T029 [P] Write parser tests: empty token list raises error in tests/test_parser.py
 
 **Verify these tests FAIL before proceeding to GREEN phase**
 
 #### GREEN Phase (Minimal implementation to pass tests)
 
-- [ ] T030 Implement ASTNode base class and subclasses (NumberNode, BinaryOpNode, UnaryOpNode) in calculator.py
-- [ ] T031 Implement Parser class with parse() method in calculator.py
-- [ ] T032 Implement expression() method (handles PLUS/MINUS, left-to-right) in calculator.py
-- [ ] T033 Implement term() method (handles MULTIPLY/DIVIDE, left-to-right) in calculator.py
-- [ ] T034 Implement factor() method (handles NUMBER and UNARY_MINUS) in calculator.py
-- [ ] T035 Implement error handling for malformed expressions in calculator.py
-- [ ] T036 Run pytest on parser tests - ALL MUST PASS
+- [x] T030 Implement ASTNode base class and subclasses (NumberNode, BinaryOpNode, UnaryOpNode) in calculator.py
+- [x] T031 Implement Parser class with parse() method in calculator.py
+- [x] T032 Implement expression() method (handles PLUS/MINUS, left-to-right) in calculator.py
+- [x] T033 Implement term() method (handles MULTIPLY/DIVIDE, left-to-right) in calculator.py
+- [x] T034 Implement factor() method (handles NUMBER and UNARY_MINUS) in calculator.py
+- [x] T035 Implement error handling for malformed expressions in calculator.py
+- [x] T036 Run pytest on parser tests - ALL MUST PASS
 
 #### REFACTOR Phase (Clean up, optimize, document)
 
-- [ ] T037 Add type hints to Parser and AST classes in calculator.py
-- [ ] T038 Add docstrings explaining recursive descent grammar in calculator.py
-- [ ] T039 Run mypy strict mode - MUST have 0 errors in calculator.py
+- [x] T037 Add type hints to Parser and AST classes in calculator.py
+- [x] T038 Add docstrings explaining recursive descent grammar in calculator.py
+- [x] T039 Run mypy strict mode - MUST have 0 errors in calculator.py
 
 **Checkpoint**: Parser fully implemented and tested, all parser tests pass, BODMAS precedence verified
 
@@ -134,36 +134,36 @@ The Evaluator walks the AST and computes results, handling integer division trun
 
 #### RED Phase (Write failing tests first)
 
-- [ ] T040 [P] Write evaluator tests: number evaluation in tests/test_evaluator.py
-- [ ] T041 [P] Write evaluator tests: basic arithmetic (+, -, *, /) in tests/test_evaluator.py
-- [ ] T042 [P] Write evaluator tests: integer division truncation toward zero (15 / 2 = 7, -7 / 2 = -3) in tests/test_evaluator.py
-- [ ] T043 [P] Write evaluator tests: division by zero raises DivisionByZeroError in tests/test_evaluator.py
-- [ ] T044 [P] Write evaluator tests: unary minus evaluation in tests/test_evaluator.py
-- [ ] T045 [P] Write evaluator tests: complex expressions with operator precedence in tests/test_evaluator.py
+- [x] T040 [P] Write evaluator tests: number evaluation in tests/test_evaluator.py
+- [x] T041 [P] Write evaluator tests: basic arithmetic (+, -, *, /) in tests/test_evaluator.py
+- [x] T042 [P] Write evaluator tests: integer division truncation toward zero (15 / 2 = 7, -7 / 2 = -3) in tests/test_evaluator.py
+- [x] T043 [P] Write evaluator tests: division by zero raises DivisionByZeroError in tests/test_evaluator.py
+- [x] T044 [P] Write evaluator tests: unary minus evaluation in tests/test_evaluator.py
+- [x] T045 [P] Write evaluator tests: complex expressions with operator precedence in tests/test_evaluator.py
 
 **Verify these tests FAIL before proceeding to GREEN phase**
 
 #### GREEN Phase (Minimal implementation to pass tests)
 
-- [ ] T046 Implement custom exception hierarchy in calculator.py:
+- [x] T046 Implement custom exception hierarchy in calculator.py:
   - CalculatorError (base)
   - DivisionByZeroError
   - InvalidOperandError
   - InvalidOperatorError
   - MalformedExpressionError
-- [ ] T047 Implement Evaluator class with evaluate() method in calculator.py
-- [ ] T048 Implement number evaluation (return value) in calculator.py
-- [ ] T049 Implement binary operation evaluation in calculator.py
-- [ ] T050 Implement division using int(left / right) for truncation toward zero in calculator.py
-- [ ] T051 Implement division by zero detection and error raising in calculator.py
-- [ ] T052 Implement unary minus evaluation in calculator.py
-- [ ] T053 Run pytest on evaluator tests - ALL MUST PASS
+- [x] T047 Implement Evaluator class with evaluate() method in calculator.py
+- [x] T048 Implement number evaluation (return value) in calculator.py
+- [x] T049 Implement binary operation evaluation in calculator.py
+- [x] T050 Implement division using int(left / right) for truncation toward zero in calculator.py
+- [x] T051 Implement division by zero detection and error raising in calculator.py
+- [x] T052 Implement unary minus evaluation in calculator.py
+- [x] T053 Run pytest on evaluator tests - ALL MUST PASS
 
 #### REFACTOR Phase (Clean up, optimize, document)
 
-- [ ] T054 Add type hints to Evaluator class in calculator.py
-- [ ] T055 Add docstrings for evaluation logic in calculator.py
-- [ ] T056 Run mypy strict mode - MUST have 0 errors in calculator.py
+- [x] T054 Add type hints to Evaluator class in calculator.py
+- [x] T055 Add docstrings for evaluation logic in calculator.py
+- [x] T056 Run mypy strict mode - MUST have 0 errors in calculator.py
 
 **Checkpoint**: Evaluator fully implemented and tested, integer division truncation verified, all evaluator tests pass
 
@@ -177,22 +177,22 @@ Create error message mapping for CLI output. All user stories depend on this for
 
 #### RED Phase (Write failing tests first)
 
-- [ ] T057 [P] Write tests for error message formatting in tests/test_cli.py (DivisionByZeroError → "Error: Division by zero is not allowed")
-- [ ] T058 [P] Write tests for error message formatting (MalformedExpressionError → "Error: Malformed expression")
-- [ ] T059 [P] Write tests for error message formatting (InvalidOperandError → "Error: Invalid operand")
+- [x] T057 [P] Write tests for error message formatting in tests/test_cli.py (DivisionByZeroError → "Error: Division by zero is not allowed")
+- [x] T058 [P] Write tests for error message formatting (MalformedExpressionError → "Error: Malformed expression")
+- [x] T059 [P] Write tests for error message formatting (InvalidOperandError → "Error: Invalid operand")
 
 **Verify these tests FAIL before proceeding to GREEN phase**
 
 #### GREEN Phase (Minimal implementation to pass tests)
 
-- [ ] T060 Create ERROR_MESSAGES dictionary mapping exception types to user-friendly messages in calculator.py
-- [ ] T061 Implement error message lookup function in calculator.py
-- [ ] T062 Run pytest on error message tests - ALL MUST PASS
+- [x] T060 Create ERROR_MESSAGES dictionary mapping exception types to user-friendly messages in calculator.py
+- [x] T061 Implement error message lookup function in calculator.py
+- [x] T062 Run pytest on error message tests - ALL MUST PASS
 
 #### REFACTOR Phase
 
-- [ ] T063 Add type hints to error handling functions in calculator.py
-- [ ] T064 Run mypy strict mode - MUST have 0 errors in calculator.py
+- [x] T063 Add type hints to error handling functions in calculator.py
+- [x] T064 Run mypy strict mode - MUST have 0 errors in calculator.py
 
 **Checkpoint**: Exception mapping complete, error messages verified, foundation ready for user stories
 
@@ -217,14 +217,14 @@ Create error message mapping for CLI output. All user stories depend on this for
 
 #### RED Phase (Write failing tests first)
 
-- [ ] T065 [P] [US1] Write CLI integration tests for basic arithmetic in tests/test_cli.py:
+- [x] T065 [P] [US1] Write CLI integration tests for basic arithmetic in tests/test_cli.py:
   - Test: "5 + 3" outputs "8" to stdout, exit 0
   - Test: "10 - 4" outputs "6" to stdout, exit 0
   - Test: "6 * 7" outputs "42" to stdout, exit 0
   - Test: "20 / 4" outputs "5" to stdout, exit 0
-- [ ] T066 [P] [US1] Write CLI integration tests for integer division in tests/test_cli.py:
+- [x] T066 [P] [US1] Write CLI integration tests for integer division in tests/test_cli.py:
   - Test: "15 / 2" outputs "7" to stdout, exit 0
-- [ ] T067 [P] [US1] Write CLI integration tests for chained operations in tests/test_cli.py:
+- [x] T067 [P] [US1] Write CLI integration tests for chained operations in tests/test_cli.py:
   - Test: "10 - 5 - 2" outputs "3" to stdout, exit 0
   - Test: "20 - 10 - 5 - 3" outputs "2" to stdout, exit 0
 
@@ -232,24 +232,24 @@ Create error message mapping for CLI output. All user stories depend on this for
 
 #### GREEN Phase (Minimal implementation to pass tests)
 
-- [ ] T068 [US1] Implement main() function in calculator.py:
+- [x] T068 [US1] Implement main() function in calculator.py:
   - Check sys.argv for expression
   - Call tokenize → parse → evaluate pipeline
   - Print result to stdout on success, exit 0
   - Catch exceptions, print to stderr, exit 1
-- [ ] T069 [US1] Implement command-line argument handling in main() function
-- [ ] T070 [US1] Implement stdout output for successful results in main() function
-- [ ] T071 [US1] Implement exit code handling (0 for success, 1 for errors) in main() function
-- [ ] T072 [US1] Add if __name__ == "__main__": main() at end of calculator.py
-- [ ] T073 [US1] Run pytest on US1 CLI tests - ALL MUST PASS
-- [ ] T074 [US1] Test manually: `python calculator.py "5 + 3"` outputs `8`, exit 0
+- [x] T069 [US1] Implement command-line argument handling in main() function
+- [x] T070 [US1] Implement stdout output for successful results in main() function
+- [x] T071 [US1] Implement exit code handling (0 for success, 1 for errors) in main() function
+- [x] T072 [US1] Add if __name__ == "__main__": main() at end of calculator.py
+- [x] T073 [US1] Run pytest on US1 CLI tests - ALL MUST PASS
+- [x] T074 [US1] Test manually: `python calculator.py "5 + 3"` outputs `8`, exit 0
 
 #### REFACTOR Phase (Clean up, optimize, document)
 
-- [ ] T075 [US1] Add type hints to main() function in calculator.py
-- [ ] T076 [US1] Add docstring to main() function explaining CLI contract in calculator.py
-- [ ] T077 [US1] Run mypy strict mode - MUST have 0 errors in calculator.py
-- [ ] T078 [US1] Run black formatter on calculator.py - MUST have 0 differences
+- [x] T075 [US1] Add type hints to main() function in calculator.py
+- [x] T076 [US1] Add docstring to main() function explaining CLI contract in calculator.py
+- [x] T077 [US1] Run mypy strict mode - MUST have 0 errors in calculator.py
+- [x] T078 [US1] Run black formatter on calculator.py - MUST have 0 differences
 
 **Checkpoint**: User Story 1 fully functional. Test independently: `python calculator.py "5 + 3"` works correctly. STOP and validate before proceeding.
 
@@ -276,11 +276,11 @@ Create error message mapping for CLI output. All user stories depend on this for
 
 #### RED Phase (Write failing tests first)
 
-- [ ] T079 [P] [US2] Write CLI integration tests for BODMAS precedence in tests/test_edge_cases.py:
+- [x] T079 [P] [US2] Write CLI integration tests for BODMAS precedence in tests/test_edge_cases.py:
   - Test: "2 + 3 * 4" outputs "14" to stdout, exit 0
   - Test: "10 - 6 / 2" outputs "7" to stdout, exit 0
   - Test: "2 * 3 + 4 * 5" outputs "26" to stdout, exit 0
-- [ ] T080 [P] [US2] Write CLI tests for chained operations in tests/test_edge_cases.py:
+- [x] T080 [P] [US2] Write CLI tests for chained operations in tests/test_edge_cases.py:
   - Test: "100 / 10 / 2" outputs "5" to stdout, exit 0
   - Test: "20 / 4 / 2" outputs "2" to stdout, exit 0
   - Test: "10 - 3 - 2" outputs "5" to stdout, exit 0
@@ -291,18 +291,18 @@ Create error message mapping for CLI output. All user stories depend on this for
 
 #### GREEN Phase (Verify correct behavior)
 
-- [ ] T081 [US2] Run all US2 CLI tests - ALL MUST PASS (no new code needed, parser already handles this)
-- [ ] T082 [US2] Test manually:
+- [x] T081 [US2] Run all US2 CLI tests - ALL MUST PASS (no new code needed, parser already handles this)
+- [x] T082 [US2] Test manually:
   - `python calculator.py "2 + 3 * 4"` outputs `14`
   - `python calculator.py "10 - 6 / 2"` outputs `7`
   - `python calculator.py "100 / 10 / 2"` outputs `5`
 
 #### REFACTOR Phase
 
-- [ ] T083 [US2] Run full test suite: `pytest --cov=calculator --cov-report=term-missing`
-- [ ] T084 [US2] Verify coverage is 80%+ (constitution requirement)
-- [ ] T085 [US2] Run mypy strict mode - MUST have 0 errors
-- [ ] T086 [US2] Run black formatter - MUST have 0 differences
+- [x] T083 [US2] Run full test suite: `pytest --cov=calculator --cov-report=term-missing`
+- [x] T084 [US2] Verify coverage is 80%+ (constitution requirement)
+- [x] T085 [US2] Run mypy strict mode - MUST have 0 errors
+- [x] T086 [US2] Run black formatter - MUST have 0 differences
 
 **Checkpoint**: User Story 2 verified. BODMAS precedence works correctly. Parser handles all precedence cases. Stop and validate before proceeding.
 
@@ -324,10 +324,10 @@ Create error message mapping for CLI output. All user stories depend on this for
 
 #### RED Phase (Write failing tests first)
 
-- [ ] T087 [P] [US3] Write CLI tests for division by zero in tests/test_edge_cases.py:
+- [x] T087 [P] [US3] Write CLI tests for division by zero in tests/test_edge_cases.py:
   - Test: "10 / 0" outputs error message to stderr, exit 1
   - Test: "5 + 10 / 0" outputs error message to stderr, exit 1
-- [ ] T088 [P] [US3] Write tests verifying error message format in tests/test_edge_cases.py:
+- [x] T088 [P] [US3] Write tests verifying error message format in tests/test_edge_cases.py:
   - Test: stderr output starts with "Error:"
   - Test: exit code is 1 (not 0)
 
@@ -335,17 +335,17 @@ Create error message mapping for CLI output. All user stories depend on this for
 
 #### GREEN Phase (Minimal implementation to pass tests)
 
-- [ ] T089 [US3] Implement stderr output for errors in main() function in calculator.py
-- [ ] T090 [US3] Map DivisionByZeroError to user-friendly message in ERROR_MESSAGES in calculator.py
-- [ ] T091 [US3] Verify error message printed to stderr (not stdout) in main() function
-- [ ] T092 [US3] Run pytest on US3 tests - ALL MUST PASS
-- [ ] T093 [US3] Test manually: `python calculator.py "10 / 0"` outputs error to stderr, exit 1
+- [x] T089 [US3] Implement stderr output for errors in main() function in calculator.py
+- [x] T090 [US3] Map DivisionByZeroError to user-friendly message in ERROR_MESSAGES in calculator.py
+- [x] T091 [US3] Verify error message printed to stderr (not stdout) in main() function
+- [x] T092 [US3] Run pytest on US3 tests - ALL MUST PASS
+- [x] T093 [US3] Test manually: `python calculator.py "10 / 0"` outputs error to stderr, exit 1
 
 #### REFACTOR Phase
 
-- [ ] T094 [US3] Run full test suite: `pytest tests/`
-- [ ] T095 [US3] Run mypy strict mode - MUST have 0 errors
-- [ ] T096 [US3] Run black formatter - MUST have 0 differences
+- [x] T094 [US3] Run full test suite: `pytest tests/`
+- [x] T095 [US3] Run mypy strict mode - MUST have 0 errors
+- [x] T096 [US3] Run black formatter - MUST have 0 differences
 
 **Checkpoint**: User Story 3 fully functional. Division by zero error handling verified. Stop and validate before proceeding.
 
@@ -373,18 +373,18 @@ Create error message mapping for CLI output. All user stories depend on this for
 
 #### RED Phase (Write failing tests first)
 
-- [ ] T097 [P] [US4] Write CLI tests for invalid operands in tests/test_edge_cases.py:
+- [x] T097 [P] [US4] Write CLI tests for invalid operands in tests/test_edge_cases.py:
   - Test: "5 + abc" outputs error to stderr, exit 1
   - Test: "5 + 3.5" outputs error to stderr (non-integers), exit 1
-- [ ] T098 [P] [US4] Write CLI tests for empty/whitespace input in tests/test_edge_cases.py:
+- [x] T098 [P] [US4] Write CLI tests for empty/whitespace input in tests/test_edge_cases.py:
   - Test: "" outputs error to stderr, exit 1
   - Test: "   " outputs error to stderr, exit 1
   - Test: no argument provided outputs error to stderr, exit 1
-- [ ] T099 [P] [US4] Write CLI tests for malformed expressions in tests/test_edge_cases.py:
+- [x] T099 [P] [US4] Write CLI tests for malformed expressions in tests/test_edge_cases.py:
   - Test: "5 ++" outputs error to stderr, exit 1
   - Test: "5 +" outputs error to stderr, exit 1
   - Test: "+ 5" outputs error to stderr, exit 1
-- [ ] T100 [P] [US4] Write CLI tests for invalid operators in tests/test_edge_cases.py:
+- [x] T100 [P] [US4] Write CLI tests for invalid operators in tests/test_edge_cases.py:
   - Test: "5 @ 3" outputs error to stderr, exit 1
   - Test: "5 # 3" outputs error to stderr, exit 1
 
@@ -392,23 +392,23 @@ Create error message mapping for CLI output. All user stories depend on this for
 
 #### GREEN Phase (Minimal implementation to pass tests)
 
-- [ ] T101 [US4] Implement empty/whitespace input check in main() function in calculator.py
-- [ ] T102 [US4] Implement error message for empty input in ERROR_MESSAGES in calculator.py
-- [ ] T103 [US4] Verify InvalidOperandError caught and mapped to error message in main() function
-- [ ] T104 [US4] Verify InvalidOperatorError caught and mapped to error message in main() function
-- [ ] T105 [US4] Verify MalformedExpressionError caught and mapped to error message in main() function
-- [ ] T106 [US4] Run pytest on US4 tests - ALL MUST PASS
-- [ ] T107 [US4] Test manually:
+- [x] T101 [US4] Implement empty/whitespace input check in main() function in calculator.py
+- [x] T102 [US4] Implement error message for empty input in ERROR_MESSAGES in calculator.py
+- [x] T103 [US4] Verify InvalidOperandError caught and mapped to error message in main() function
+- [x] T104 [US4] Verify InvalidOperatorError caught and mapped to error message in main() function
+- [x] T105 [US4] Verify MalformedExpressionError caught and mapped to error message in main() function
+- [x] T106 [US4] Run pytest on US4 tests - ALL MUST PASS
+- [x] T107 [US4] Test manually:
   - `python calculator.py ""` outputs error to stderr
   - `python calculator.py "5 + abc"` outputs error to stderr
   - `python calculator.py "5 ++"` outputs error to stderr
 
 #### REFACTOR Phase
 
-- [ ] T108 [US4] Run full test suite: `pytest --cov=calculator --cov-report=term-missing`
-- [ ] T109 [US4] Verify coverage is 80%+ (constitution requirement)
-- [ ] T110 [US4] Run mypy strict mode - MUST have 0 errors
-- [ ] T111 [US4] Run black formatter - MUST have 0 differences
+- [x] T108 [US4] Run full test suite: `pytest --cov=calculator --cov-report=term-missing`
+- [x] T109 [US4] Verify coverage is 80%+ (constitution requirement)
+- [x] T110 [US4] Run mypy strict mode - MUST have 0 errors
+- [x] T111 [US4] Run black formatter - MUST have 0 differences
 
 **Checkpoint**: User Story 4 fully functional. Invalid input error handling verified. All user stories complete and independently testable.
 
