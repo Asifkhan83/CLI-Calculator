@@ -418,24 +418,24 @@ Create error message mapping for CLI output. All user stories depend on this for
 
 **Purpose**: Final validation, code quality, and documentation
 
-- [ ] T112 [P] Run complete test suite: `pytest tests/ -v` (all tests MUST PASS)
-- [ ] T113 [P] Run coverage report: `pytest --cov=calculator --cov-report=term-missing` (MUST be 80%+)
-- [ ] T114 [P] Run mypy strict: `mypy calculator.py --strict` (MUST have 0 errors)
-- [ ] T115 [P] Run black formatter: `black calculator.py tests/` (MUST have 0 differences)
-- [ ] T116 Validate all acceptance scenarios from spec.md:
+- [x] T112 [P] Run complete test suite: `pytest tests/ -v` (all tests MUST PASS)
+- [x] T113 [P] Run coverage report: `pytest --cov=calculator --cov-report=term-missing` (MUST be 80%+)
+- [x] T114 [P] Run mypy strict: `mypy calculator.py --strict` (MUST have 0 errors)
+- [x] T115 [P] Run black formatter: `black calculator.py tests/` (MUST have 0 differences)
+- [x] T116 Validate all acceptance scenarios from spec.md:
   - US1: Basic arithmetic (7 scenarios)
   - US2: BODMAS precedence (6 scenarios)
   - US3: Division by zero (2 scenarios)
   - US4: Invalid input (5+ scenarios)
-- [ ] T117 Test CLI with sample inputs:
+- [x] T117 Test CLI with sample inputs:
   - `python calculator.py "2 + 3"` → 5
   - `python calculator.py "2 + 3 * 4"` → 14
   - `python calculator.py "10 / 0"` → error
   - `python calculator.py ""` → error
-- [ ] T118 Verify exit codes: success (0), error (1)
-- [ ] T119 Verify stdout/stderr separation: results to stdout, errors to stderr
-- [ ] T120 Final code review: Check all type hints, docstrings, error handling
-- [ ] T121 Create README.md with usage examples and test instructions
+- [x] T118 Verify exit codes: success (0), error (1)
+- [x] T119 Verify stdout/stderr separation: results to stdout, errors to stderr
+- [x] T120 Final code review: Check all type hints, docstrings, error handling
+- [x] T121 Create README.md with usage examples and test instructions
 
 **Final Checkpoint**: All tests pass, coverage 80%+, mypy 0 errors, black formatted. Calculator ready for deployment.
 
@@ -548,13 +548,13 @@ After MVP:
 
 After completing all phases, verify against spec.md:
 
-- [ ] SC-001: All four operations work (+-*/)
-- [ ] SC-002: BODMAS precedence correct (mult/div before add/sub)
-- [ ] SC-003: Division by zero handled with error message
-- [ ] SC-004: Invalid input handled with error message
-- [ ] SC-005: Immediate execution (no delays)
-- [ ] SC-006: Clear error messages
-- [ ] SC-007: Whitespace flexibility (leading/trailing/between operators)
-- [ ] SC-008: Exit codes correct (0 success, 1 error)
+- [x] SC-001: All four operations work (+-*/)
+- [x] SC-002: BODMAS precedence correct (mult/div before add/sub)
+- [x] SC-003: Division by zero handled with error message
+- [x] SC-004: Invalid input handled with error message
+- [x] SC-005: Immediate execution (no delays)
+- [x] SC-006: Clear error messages
+- [x] SC-007: Whitespace flexibility (leading/trailing/between operators)
+- [x] SC-008: Exit codes correct (0 success, 1 error)
 
 All acceptance scenarios from all 4 user stories verified? → **READY FOR PRODUCTION**
