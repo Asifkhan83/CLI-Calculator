@@ -27,11 +27,11 @@ description: "Actionable task list for CLI Calculator implementation"
 
 **Expected Duration**: 10 minutes
 
-- [ ] T001 Create project structure: calculator.py, tests/ directory at repository root
-- [ ] T002 Create pyproject.toml with uv configuration, pytest, mypy, black, pytest-cov dependencies
-- [ ] T003 [P] Create .gitignore with Python-specific entries (venv/, __pycache__/, *.pyc, .pytest_cache/, .mypy_cache/, .coverage, htmlcov/)
-- [ ] T004 [P] Create empty test files: tests/test_tokenizer.py, tests/test_parser.py, tests/test_evaluator.py, tests/test_cli.py, tests/test_edge_cases.py
-- [ ] T005 Verify uv environment initializes and dependencies install without errors
+- [x] T001 Create project structure: calculator.py, tests/ directory at repository root
+- [x] T002 Create pyproject.toml with uv configuration, pytest, mypy, black, pytest-cov dependencies
+- [x] T003 [P] Create .gitignore with Python-specific entries (venv/, __pycache__/, *.pyc, .pytest_cache/, .mypy_cache/, .coverage, htmlcov/)
+- [x] T004 [P] Create empty test files: tests/test_tokenizer.py, tests/test_parser.py, tests/test_evaluator.py, tests/test_cli.py, tests/test_edge_cases.py
+- [x] T005 Verify uv environment initializes and dependencies install without errors
 
 **Checkpoint**: Project structure ready, dependencies installed, tests directory prepared
 
