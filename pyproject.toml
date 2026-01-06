@@ -1,0 +1,22 @@
+[project]
+name = "cli-calculator"
+version = "0.1.0"
+description = "A CLI calculator with BODMAS precedence support"
+readme = "Readme.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+calculator = "calculator:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[tool.uv]
+package = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
