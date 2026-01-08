@@ -33,7 +33,25 @@ class TestBasicModulo:
 class TestModuloPrecedence:
     """Tests for BODMAS precedence with modulo (US2)."""
 
-    pass
+    def test_modulo_before_addition(self) -> None:
+        """Test 10 + 7 % 3 = 11 (modulo evaluated before addition)."""
+        assert calculate("10 + 7 % 3") == 11
+
+    def test_modulo_before_subtraction(self) -> None:
+        """Test 20 - 10 % 3 = 19 (modulo evaluated before subtraction)."""
+        assert calculate("20 - 10 % 3") == 19
+
+    def test_modulo_left_to_right_with_multiply(self) -> None:
+        """Test 2 * 10 % 3 = 2 (left-to-right: 20 % 3 = 2)."""
+        assert calculate("2 * 10 % 3") == 2
+
+    def test_modulo_left_to_right_modulo_first(self) -> None:
+        """Test 10 % 3 * 2 = 2 (left-to-right: 1 * 2 = 2)."""
+        assert calculate("10 % 3 * 2") == 2
+
+    def test_modulo_left_to_right_with_divide(self) -> None:
+        """Test 15 / 3 % 2 = 1 (left-to-right: 5 % 2 = 1)."""
+        assert calculate("15 / 3 % 2") == 1
 
 
 class TestModuloByZero:

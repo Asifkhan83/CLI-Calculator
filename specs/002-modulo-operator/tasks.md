@@ -111,20 +111,20 @@ description: "Actionable task list for Modulo Operator implementation"
 
 #### RED Phase (Write failing tests first)
 
-- [ ] T015 [P] [US2] Write test_modulo_precedence() in tests/test_modulo.py for 10+7%3=11, 20-10%3=19
-- [ ] T016 [P] [US2] Write test_modulo_left_to_right() in tests/test_modulo.py for 2*10%3=2, 10%3*2=2, 15/3%2=1
+- [x] T015 [P] [US2] Write test_modulo_precedence() in tests/test_modulo.py for 10+7%3=11, 20-10%3=19
+- [x] T016 [P] [US2] Write test_modulo_left_to_right() in tests/test_modulo.py for 2*10%3=2, 10%3*2=2, 15/3%2=1
 
 **Note**: These tests should ALREADY PASS because % is in _parse_term() (same as * and /)
 
 #### GREEN Phase (Verify correct behavior)
 
-- [ ] T017 [US2] Run pytest on US2 tests - ALL MUST PASS (no new code needed if Phase 3 is correct)
-- [ ] T018 [US2] Manual verification: python calculator.py then enter 10 + 7 % 3 → verify 11
+- [x] T017 [US2] Run pytest on US2 tests - ALL MUST PASS (no new code needed if Phase 3 is correct)
+- [x] T018 [US2] Manual verification: python calculator.py then enter 10 + 7 % 3 → verify 11
 
 #### REFACTOR Phase
 
-- [ ] T019 [US2] Run full test suite: uv run pytest -v
-- [ ] T020 [US2] Verify all tests pass with no regressions
+- [x] T019 [US2] Run full test suite: uv run pytest -v
+- [x] T020 [US2] Verify all tests pass with no regressions
 
 **Checkpoint**: User Story 2 verified. BODMAS precedence confirmed.
 
