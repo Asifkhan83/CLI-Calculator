@@ -32,7 +32,7 @@ class InvalidInputError(CalculatorError):
 class Tokenizer:
     """Tokenizes mathematical expressions into operators and numbers."""
 
-    TOKEN_PATTERN = re.compile(r"\s*(\d+|[+\-*/()])\s*")
+    TOKEN_PATTERN = re.compile(r"\s*(\d+|[+\-*/%()])\s*")
 
     def __init__(self, expression: str) -> None:
         self.expression = expression
@@ -95,18 +95,22 @@ class Parser:
         return left
 
     def _parse_term(self) -> int:
-        """Parse multiplication and division (higher precedence)."""
+        """Parse multiplication, division, and modulo (higher precedence)."""
         left = self._parse_factor()
 
-        while self.tokenizer.peek() in ("*", "/"):
+        while self.tokenizer.peek() in ("*", "/", "%"):
             operator = self.tokenizer.consume()
             right = self._parse_factor()
             if operator == "*":
                 left = left * right
-            else:
+            elif operator == "/":
                 if right == 0:
                     raise DivisionByZeroError("Division by zero is not allowed")
                 left = left // right
+            else:  # operator == "%"
+                if right == 0:
+                    raise ModuloByZeroError("Modulo by zero is not allowed")
+                left = left % right
 
         return left
 

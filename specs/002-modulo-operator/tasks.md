@@ -74,21 +74,21 @@ description: "Actionable task list for Modulo Operator implementation"
 
 #### RED Phase (Write failing tests first)
 
-- [ ] T008 [P] [US1] Write test_basic_modulo() in tests/test_modulo.py with tests for 10%3=1, 15%5=0, 7%4=3, 100%7=2
+- [x] T008 [P] [US1] Write test_basic_modulo() in tests/test_modulo.py with tests for 10%3=1, 15%5=0, 7%4=3, 100%7=2
 
 **Verify these tests FAIL before proceeding to GREEN phase**
 
 #### GREEN Phase (Minimal implementation to pass tests)
 
-- [ ] T009 [US1] Update TOKEN_PATTERN in Tokenizer class (calculator.py:25) - add % to character class
-- [ ] T010 [US1] Add % to _parse_term() operator check in Parser class (calculator.py:93)
-- [ ] T011 [US1] Add modulo evaluation in _parse_term() method (calculator.py:96-102)
-- [ ] T012 [US1] Run pytest on US1 tests - ALL MUST PASS
+- [x] T009 [US1] Update TOKEN_PATTERN in Tokenizer class (calculator.py:25) - add % to character class
+- [x] T010 [US1] Add % to _parse_term() operator check in Parser class (calculator.py:93)
+- [x] T011 [US1] Add modulo evaluation in _parse_term() method (calculator.py:96-102)
+- [x] T012 [US1] Run pytest on US1 tests - ALL MUST PASS
 
 #### REFACTOR Phase
 
-- [ ] T013 [US1] Run black formatter on calculator.py
-- [ ] T014 [US1] Run mypy on calculator.py - verify 0 errors
+- [x] T013 [US1] Run black formatter on calculator.py
+- [x] T014 [US1] Run mypy on calculator.py - verify 0 errors
 
 **Checkpoint**: User Story 1 complete. Test: 10 % 3 returns 1. STOP and validate before proceeding.
 
