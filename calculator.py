@@ -182,6 +182,8 @@ def main() -> None:
 
         except DivisionByZeroError as e:
             print(f"Error: {e}")
+        except ModuloByZeroError as e:
+            print(f"Error: {e}")
         except InvalidInputError as e:
             print(f"Error: {e}")
         except KeyboardInterrupt:

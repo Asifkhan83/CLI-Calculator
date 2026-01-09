@@ -1,4 +1,5 @@
 """Tests for modulo operator functionality."""
+
 import pytest
 
 from calculator import (
@@ -61,14 +62,48 @@ class TestModuloByZero:
         """Test that ModuloByZeroError exception class exists and is a CalculatorError."""
         assert issubclass(ModuloByZeroError, CalculatorError)
 
+    def test_modulo_by_zero_direct(self) -> None:
+        """Test 10 % 0 raises ModuloByZeroError."""
+        with pytest.raises(ModuloByZeroError):
+            calculate("10 % 0")
+
+    def test_modulo_by_zero_in_expression(self) -> None:
+        """Test 5 + 10 % 0 raises ModuloByZeroError."""
+        with pytest.raises(ModuloByZeroError):
+            calculate("5 + 10 % 0")
+
 
 class TestModuloNegativeNumbers:
     """Tests for modulo with negative operands (US4)."""
 
-    pass
+    def test_negative_dividend(self) -> None:
+        """Test -10 % 3 = 2 (Python floored division semantics)."""
+        assert calculate("-10 % 3") == 2
+
+    def test_negative_divisor(self) -> None:
+        """Test 10 % -3 = -2 (Python floored division semantics)."""
+        assert calculate("10 % -3") == -2
+
+    def test_both_negative(self) -> None:
+        """Test -10 % -3 = -1 (Python floored division semantics)."""
+        assert calculate("-10 % -3") == -1
 
 
 class TestModuloEdgeCases:
     """Tests for modulo edge cases."""
 
-    pass
+    def test_dividend_smaller_than_divisor(self) -> None:
+        """Test 3 % 10 = 3 (dividend smaller than divisor returns dividend)."""
+        assert calculate("3 % 10") == 3
+
+    def test_modulo_by_one(self) -> None:
+        """Test 10 % 1 = 0 (any number mod 1 is 0)."""
+        assert calculate("10 % 1") == 0
+
+    def test_chained_modulo(self) -> None:
+        """Test 100 % 7 % 3 = 2 (left-to-right: 100%7=2, then 2%3=2)."""
+        assert calculate("100 % 7 % 3") == 2
+
+    def test_modulo_with_parentheses(self) -> None:
+        """Test (10 + 5) % 4 = 3 (parentheses evaluated first)."""
+        assert calculate("(10 + 5) % 4") == 3
