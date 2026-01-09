@@ -38,3 +38,6 @@ htmlcov/
 
 # UV
 uv.lock
+
+# Windows artifacts
+nul

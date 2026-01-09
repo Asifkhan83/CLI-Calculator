@@ -1,4 +1,5 @@
 """CLI Calculator with BODMAS precedence support."""
+
 import re
 import sys
 from typing import Union
@@ -6,23 +7,32 @@ from typing import Union
 
 class CalculatorError(Exception):
     """Base exception for calculator errors."""
+
     pass
 
 
 class DivisionByZeroError(CalculatorError):
     """Raised when attempting to divide by zero."""
+
+    pass
+
+
+class ModuloByZeroError(CalculatorError):
+    """Raised when attempting modulo by zero."""
+
     pass
 
 
 class InvalidInputError(CalculatorError):
     """Raised when input is invalid."""
+
     pass
 
 
 class Tokenizer:
     """Tokenizes mathematical expressions into operators and numbers."""
 
-    TOKEN_PATTERN = re.compile(r'\s*(\d+|[+\-*/()])\s*')
+    TOKEN_PATTERN = re.compile(r"\s*(\d+|[+\-*/%()])\s*")
 
     def __init__(self, expression: str) -> None:
         self.expression = expression
@@ -67,19 +77,17 @@ class Parser:
         """Parse and evaluate the expression."""
         result = self._parse_expression()
         if self.tokenizer.peek() is not None:
-            raise InvalidInputError(
-                f"Unexpected token: '{self.tokenizer.peek()}'"
-            )
+            raise InvalidInputError(f"Unexpected token: '{self.tokenizer.peek()}'")
         return result
 
     def _parse_expression(self) -> int:
         """Parse addition and subtraction (lowest precedence)."""
         left = self._parse_term()
 
-        while self.tokenizer.peek() in ('+', '-'):
+        while self.tokenizer.peek() in ("+", "-"):
             operator = self.tokenizer.consume()
             right = self._parse_term()
-            if operator == '+':
+            if operator == "+":
                 left = left + right
             else:
                 left = left - right
@@ -87,18 +95,22 @@ class Parser:
         return left
 
     def _parse_term(self) -> int:
-        """Parse multiplication and division (higher precedence)."""
+        """Parse multiplication, division, and modulo (higher precedence)."""
         left = self._parse_factor()
 
-        while self.tokenizer.peek() in ('*', '/'):
+        while self.tokenizer.peek() in ("*", "/", "%"):
             operator = self.tokenizer.consume()
             right = self._parse_factor()
-            if operator == '*':
+            if operator == "*":
                 left = left * right
-            else:
+            elif operator == "/":
                 if right == 0:
                     raise DivisionByZeroError("Division by zero is not allowed")
                 left = left // right
+            else:  # operator == "%"
+                if right == 0:
+                    raise ModuloByZeroError("Modulo by zero is not allowed")
+                left = left % right
 
         return left
 
@@ -110,18 +122,18 @@ class Parser:
             raise InvalidInputError("Unexpected end of expression")
 
         # Handle negative numbers at the start or after operator
-        if token == '-':
+        if token == "-":
             self.tokenizer.consume()
             return -self._parse_factor()
 
-        if token == '+':
+        if token == "+":
             self.tokenizer.consume()
             return self._parse_factor()
 
-        if token == '(':
+        if token == "(":
             self.tokenizer.consume()
             result = self._parse_expression()
-            if self.tokenizer.consume() != ')':
+            if self.tokenizer.consume() != ")":
                 raise InvalidInputError("Missing closing parenthesis")
             return result
 
@@ -158,7 +170,7 @@ def main() -> None:
         try:
             expression = input("\nEnter expression: ").strip()
 
-            if expression.lower() in ('quit', 'exit', 'q'):
+            if expression.lower() in ("quit", "exit", "q"):
                 print("Goodbye!")
                 break
 
@@ -169,6 +181,8 @@ def main() -> None:
             print(f"Result: {result}")
 
         except DivisionByZeroError as e:
+            print(f"Error: {e}")
+        except ModuloByZeroError as e:
             print(f"Error: {e}")
         except InvalidInputError as e:
             print(f"Error: {e}")
