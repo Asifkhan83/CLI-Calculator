@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0a0a0c;
+            --bg-card: rgba(18, 18, 22, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --bg-button: rgba(255, 255, 255, 0.06);
+            --bg-button-hover: rgba(255, 255, 255, 0.12);
+            --bg-function: rgba(255, 255, 255, 0.08);
+            --accent-gold: #d4a853;
+            --accent-gold-dim: rgba(212, 168, 83, 0.15);
+            --accent-gold-glow: rgba(212, 168, 83, 0.4);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.5);
+            --text-tertiary: rgba(255, 255, 255, 0.3);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-accent: rgba(212, 168, 83, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-deep);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ambient background effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(212, 168, 83, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(212, 168, 83, 0.02) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(30, 30, 40, 0.5) 0%, transparent 70%);
+            pointer-events: none;
+            animation: ambientShift 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes ambientShift {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(2%, 2%) rotate(1deg); }
+        }
+
+        /* Noise texture overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        .calculator {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            background: var(--bg-card);
+            border-radius: 32px;
+            padding: 32px 28px 28px;
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--border-subtle);
+            box-shadow:
+                0 50px 100px -20px rgba(0, 0, 0, 0.5),
+                0 30px 60px -30px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+        }
+
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Art deco corner accents */
+        .calculator::before,
+        .calculator::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            pointer-events: none;
+        }
+
+        .calculator::before {
+            top: 12px;
+            left: 12px;
+            border-top: 1px solid var(--border-accent);
+            border-left: 1px solid var(--border-accent);
+            border-top-left-radius: 20px;
+            opacity: 0;
+            animation: cornerFadeIn 0.6s 0.4s ease forwards;
+        }
+
+        .calculator::after {
+            bottom: 12px;
+            right: 12px;
+            border-bottom: 1px solid var(--border-accent);
+            border-right: 1px solid var(--border-accent);
+            border-bottom-right-radius: 20px;
+            opacity: 0;
+            animation: cornerFadeIn 0.6s 0.5s ease forwards;
+        }
+
+        @keyframes cornerFadeIn {
+            to { opacity: 1; }
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 0 4px;
+        }
+
+        .brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        .memory-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-tertiary);
+            letter-spacing: 0.05em;
+        }
+
+        .memory-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 0 10px var(--accent-gold-glow);
+        }
+
+        .memory-dot.active {
+            opacity: 1;
+        }
+
+        .display {
+            background: var(--bg-glass);
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+
+        .display-expression {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text-secondary);
+            text-align: right;
+            min-height: 22px;
+            margin-bottom: 12px;
+            letter-spacing: 0.02em;
+            word-break: break-all;
+        }
+
+        .display-result {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 52px;
+            font-weight: 300;
+            color: var(--text-primary);
+            text-align: right;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            word-break: break-all;
+            transition: color 0.2s ease;
+        }
+
+        .display-result.error {
+            color: #e85454;
+            font-size: 28px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+        }
+
+        /* Memory buttons row */
+        .memory-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 0 4px;
+        }
+
+        .btn-mem {
+            padding: 10px 8px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-mem:hover {
+            color: var(--accent-gold);
+            background: var(--accent-gold-dim);
+        }
+
+        .btn-mem:active {
+            transform: scale(0.95);
+        }
+
+        /* Main button grid */
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .btn {
+            position: relative;
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 18px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:active {
+            transform: scale(0.92);
+        }
+
+        /* Number buttons */
+        .btn-number {
+            background: var(--bg-button);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-number:hover {
+            background: var(--bg-button-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-number::before {
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .btn-number:hover::before {
+            opacity: 1;
+        }
+
+        /* Function buttons */
+        .btn-function {
+            background: var(--bg-function);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-function:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--text-primary);
+        }
+
+        /* Operator buttons */
+        .btn-operator {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #c49544 100%);
+            color: var(--bg-deep);
+            font-weight: 500;
+            border: none;
+            box-shadow:
+                0 4px 20px -4px var(--accent-gold-glow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-operator:hover {
+            background: linear-gradient(135deg, #e0b45f 0%, #d4a853 100%);
+            box-shadow:
+                0 6px 25px -4px var(--accent-gold-glow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-operator::before {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+        }
+
+        .btn-operator:hover::before {
+            opacity: 1;
+        }
+
+        /* Zero button - spans 2 columns */
+        .btn-zero {
+            grid-column: span 2;
+            aspect-ratio: auto;
+            border-radius: 18px;
+            justify-content: flex-start;
+            padding-left: 28px;
+        }
+
+        /* Equals button special styling */
+        .btn-equals {
+            position: relative;
+        }
+
+        .btn-equals::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent-gold), transparent);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-equals:hover::after {
+            opacity: 0.3;
+        }
+
+        /* Staggered button animation */
+        .btn {
+            opacity: 0;
+            animation: buttonAppear 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes buttonAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .memory-row .btn-mem:nth-child(1) { animation-delay: 0.2s; }
+        .memory-row .btn-mem:nth-child(2) { animation-delay: 0.25s; }
+        .memory-row .btn-mem:nth-child(3) { animation-delay: 0.3s; }
+        .memory-row .btn-mem:nth-child(4) { animation-delay: 0.35s; }
+
+        .buttons .btn:nth-child(1) { animation-delay: 0.3s; }
+        .buttons .btn:nth-child(2) { animation-delay: 0.35s; }
+        .buttons .btn:nth-child(3) { animation-delay: 0.4s; }
+        .buttons .btn:nth-child(4) { animation-delay: 0.45s; }
+        .buttons .btn:nth-child(5) { animation-delay: 0.4s; }
+        .buttons .btn:nth-child(6) { animation-delay: 0.45s; }
+        .buttons .btn:nth-child(7) { animation-delay: 0.5s; }
+        .buttons .btn:nth-child(8) { animation-delay: 0.55s; }
+        .buttons .btn:nth-child(9) { animation-delay: 0.5s; }
+        .buttons .btn:nth-child(10) { animation-delay: 0.55s; }
+        .buttons .btn:nth-child(11) { animation-delay: 0.6s; }
+        .buttons .btn:nth-child(12) { animation-delay: 0.65s; }
+        .buttons .btn:nth-child(13) { animation-delay: 0.6s; }
+        .buttons .btn:nth-child(14) { animation-delay: 0.65s; }
+        .buttons .btn:nth-child(15) { animation-delay: 0.7s; }
+        .buttons .btn:nth-child(16) { animation-delay: 0.75s; }
+        .buttons .btn:nth-child(17) { animation-delay: 0.7s; }
+        .buttons .btn:nth-child(18) { animation-delay: 0.75s; }
+        .buttons .btn:nth-child(19) { animation-delay: 0.8s; }
+
+        /* Ripple effect on click */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: rippleEffect 0.5s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        /* Footer branding */
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <header class="header">
+            <span class="brand">Luxe</span>
+            <div class="memory-indicator">
+                <span class="memory-dot" id="memoryDot"></span>
+                <span>M</span>
+            </div>
+        </header>
+
+        <div class="display">
+            <div class="display-expression" id="expression"></div>
+            <div class="display-result" id="result">0</div>
+        </div>
+
+        <div class="memory-row">
+            <button class="btn-mem" data-action="mc">MC</button>
+            <button class="btn-mem" data-action="mr">MR</button>
+            <button class="btn-mem" data-action="m+">M+</button>
+            <button class="btn-mem" data-action="m-">M−</button>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-function" data-action="clear">AC</button>
+            <button class="btn btn-function" data-action="negate">+/−</button>
+            <button class="btn btn-function" data-action="%">%</button>
+            <button class="btn btn-operator" data-action="/">÷</button>
+
+            <button class="btn btn-number" data-action="7">7</button>
+            <button class="btn btn-number" data-action="8">8</button>
+            <button class="btn btn-number" data-action="9">9</button>
+            <button class="btn btn-operator" data-action="*">×</button>
+
+            <button class="btn btn-number" data-action="4">4</button>
+            <button class="btn btn-number" data-action="5">5</button>
+            <button class="btn btn-number" data-action="6">6</button>
+            <button class="btn btn-operator" data-action="-">−</button>
+
+            <button class="btn btn-number" data-action="1">1</button>
+            <button class="btn btn-number" data-action="2">2</button>
+            <button class="btn btn-number" data-action="3">3</button>
+            <button class="btn btn-operator" data-action="+">+</button>
+
+            <button class="btn btn-number btn-zero" data-action="0">0</button>
+            <button class="btn btn-number" data-action=".">.</button>
+            <button class="btn btn-operator btn-equals" data-action="=">=</button>
+        </div>
+
+        <footer class="footer">
+            <span class="footer-text">Precision Engineered</span>
+        </footer>
+    </div>
+
+    <script>
+        class Calculator {
+            constructor() {
+                this.expression = '';
+                this.result = '0';
+                this.memory = 0;
+                this.lastResult = 0;
+
+                this.expressionEl = document.getElementById('expression');
+                this.resultEl = document.getElementById('result');
+                this.memoryDot = document.getElementById('memoryDot');
+
+                this.init();
+            }
+
+            init() {
+                // Button click handlers with ripple effect
+                document.querySelectorAll('.btn, .btn-mem').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.createRipple(e, btn);
+                        this.handleInput(btn.dataset.action);
+                    });
+                });
+
+                // Keyboard support
+                document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+            }
+
+            createRipple(e, btn) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+
+                const rect = btn.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+
+                btn.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 500);
+            }
+
+            handleKeyboard(e) {
+                const key = e.key;
+                if (/[0-9]/.test(key)) this.handleInput(key);
+                else if (['+', '-', '*', '/', '(', ')', '.', '%'].includes(key)) this.handleInput(key);
+                else if (key === 'Enter' || key === '=') { e.preventDefault(); this.handleInput('='); }
+                else if (key === 'Escape') this.handleInput('clear');
+                else if (key === 'Backspace') this.handleBackspace();
+            }
+
+            handleInput(action) {
+                this.resultEl.classList.remove('error');
+
+                switch(action) {
+                    case 'clear':
+                        this.clear();
+                        break;
+                    case '=':
+                        this.calculate();
+                        break;
+                    case 'negate':
+                        this.negate();
+                        break;
+                    case 'mc':
+                        this.memory = 0;
+                        this.updateMemoryIndicator();
+                        break;
+                    case 'mr':
+                        if (this.memory !== 0) {
+                            this.expression += this.memory;
+                            this.updateDisplay();
+                        }
+                        break;
+                    case 'm+':
+                        this.memory += this.lastResult;
+                        this.updateMemoryIndicator();
+                        break;
+                    case 'm-':
+                        this.memory -= this.lastResult;
+                        this.updateMemoryIndicator();
+                        break;
+                    default:
+                        this.appendToExpression(action);
+                }
+            }
+
+            appendToExpression(value) {
+                if (this.result !== '0' && this.expression === '') {
+                    this.result = '0';
+                }
+                this.expression += value;
+                this.updateDisplay();
+            }
+
+            handleBackspace() {
+                this.expression = this.expression.slice(0, -1);
+                this.updateDisplay();
+            }
+
+            clear() {
+                this.expression = '';
+                this.result = '0';
+                this.updateDisplay();
+            }
+
+            negate() {
+                if (this.result !== '0' && this.result !== 'Error') {
+                    this.result = (parseFloat(this.result) * -1).toString();
+                    this.lastResult = parseFloat(this.result);
+                    this.updateDisplay();
+                }
+            }
+
+            updateMemoryIndicator() {
+                this.memoryDot.classList.toggle('active', this.memory !== 0);
+            }
+
+            calculate() {
+                if (!this.expression) return;
+
+                try {
+                    const result = this.evaluateExpression(this.expression);
+                    this.lastResult = result;
+                    this.result = this.formatResult(result);
+                    this.expression = '';
+                    this.updateDisplay();
+                } catch (error) {
+                    this.resultEl.classList.add('error');
+                    this.result = 'Error';
+                    this.updateDisplay();
+                }
+            }
+
+            evaluateExpression(expr) {
+                const tokens = this.tokenize(expr);
+                const result = this.parseExpression(tokens, { pos: 0 });
+
+                if (result.pos < tokens.length) {
+                    throw new Error('Invalid expression');
+                }
+
+                return result.value;
+            }
+
+            tokenize(expr) {
+                const tokens = [];
+                let i = 0;
+
+                while (i < expr.length) {
+                    if (/\s/.test(expr[i])) {
+                        i++;
+                        continue;
+                    }
+
+                    if (/[0-9.]/.test(expr[i])) {
+                        let num = '';
+                        while (i < expr.length && /[0-9.]/.test(expr[i])) {
+                            num += expr[i++];
+                        }
+                        tokens.push({ type: 'number', value: parseFloat(num) });
+                    } else if (['+', '-', '*', '/', '%', '(', ')'].includes(expr[i])) {
+                        tokens.push({ type: 'operator', value: expr[i++] });
+                    } else {
+                        throw new Error('Invalid character');
+                    }
+                }
+
+                return tokens;
+            }
+
+            parseExpression(tokens, state) {
+                let left = this.parseTerm(tokens, state);
+
+                while (state.pos < tokens.length) {
+                    const token = tokens[state.pos];
+                    if (token.type !== 'operator' || (token.value !== '+' && token.value !== '-')) {
+                        break;
+                    }
+                    state.pos++;
+                    const right = this.parseTerm(tokens, state);
+
+                    if (token.value === '+') {
+                        left = { value: left.value + right.value, pos: state.pos };
+                    } else {
+                        left = { value: left.value - right.value, pos: state.pos };
+                    }
+                }
+
+                return left;
+            }
+
+            parseTerm(tokens, state) {
+                let left = this.parseFactor(tokens, state);
+
+                while (state.pos < tokens.length) {
+                    const token = tokens[state.pos];
+                    if (token.type !== 'operator' || !['*', '/', '%'].includes(token.value)) {
+                        break;
+                    }
+                    state.pos++;
+                    const right = this.parseFactor(tokens, state);
+
+                    if (token.value === '*') {
+                        left = { value: left.value * right.value, pos: state.pos };
+                    } else if (token.value === '/') {
+                        if (right.value === 0) throw new Error('Division by zero');
+                        left = { value: left.value / right.value, pos: state.pos };
+                    } else {
+                        if (right.value === 0) throw new Error('Modulo by zero');
+                        left = { value: left.value % right.value, pos: state.pos };
+                    }
+                }
+
+                return left;
+            }
+
+            parseFactor(tokens, state) {
+                if (state.pos >= tokens.length) {
+                    throw new Error('Unexpected end');
+                }
+
+                const token = tokens[state.pos];
+
+                if (token.type === 'operator' && (token.value === '-' || token.value === '+')) {
+                    state.pos++;
+                    const factor = this.parseFactor(tokens, state);
+                    return {
+                        value: token.value === '-' ? -factor.value : factor.value,
+                        pos: state.pos
+                    };
+                }
+
+                if (token.type === 'operator' && token.value === '(') {
+                    state.pos++;
+                    const result = this.parseExpression(tokens, state);
+
+                    if (state.pos >= tokens.length || tokens[state.pos].value !== ')') {
+                        throw new Error('Missing )');
+                    }
+                    state.pos++;
+                    return result;
+                }
+
+                if (token.type === 'number') {
+                    state.pos++;
+                    return { value: token.value, pos: state.pos };
+                }
+
+                throw new Error('Invalid expression');
+            }
+
+            formatResult(num) {
+                if (!isFinite(num)) throw new Error('Invalid result');
+
+                const rounded = Math.round(num * 1e10) / 1e10;
+
+                if (Math.abs(rounded) >= 1e9) {
+                    return rounded.toExponential(4);
+                }
+
+                const str = rounded.toString();
+                if (str.length > 12) {
+                    return parseFloat(rounded.toPrecision(10)).toString();
+                }
+
+                return str;
+            }
+
+            updateDisplay() {
+                this.expressionEl.textContent = this.expression
+                    .replace(/\*/g, '×')
+                    .replace(/\//g, '÷')
+                    .replace(/-/g, '−');
+                this.resultEl.textContent = this.result;
+            }
+        }
+
+        // Initialize
+        new Calculator();
+    </script>
+</body>
+</html>
